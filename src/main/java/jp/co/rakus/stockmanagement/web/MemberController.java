@@ -52,14 +52,20 @@ public class MemberController {
 	 * @return ログイン画面
 	 */
 	@RequestMapping(value = "create")
-	public String create(@Validated MemberForm form,BindingResult result, 
-			Model model ) {
+	public String create(@Validated MemberForm form,BindingResult result, Model model ) {
+		//入力したメールアドレスで保存してあるメールアドレスを呼び出して、存在しているか確認する
+		Member member=memberService.findOneByMailAddress(form.getMailAddress());
+		//存在しているなら
+		if(member!=null){
+			result.rejectValue("mailAddress", null, "既にこのメールアドレスは使われています。");
+		}
+		
 		if(result.hasErrors()){//
 			return "/member/form";
 		}
-		Member member = new Member();
-		BeanUtils.copyProperties(form, member);
-		memberService.save(member);
+		Member newMenber = new Member();
+		BeanUtils.copyProperties(form, newMenber);
+		memberService.save(newMenber);
 		return "redirect:/";
 	}
 	
