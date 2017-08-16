@@ -20,7 +20,10 @@ public class MemberForm {
 	/** パスワード */
 	@Size(min = 1, max = 8, message = "１文字以上８文字未満で入力してください。")
 	private String password;
-
+	/** 確認用パスワード */
+	@Size(min = 1, max = 8, message = "１文字以上８文字未満で入力してください。")
+	private String passwordConfirm;
+	
 	public String getName() {
 		return name;
 	}
@@ -44,4 +47,13 @@ public class MemberForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	
 }

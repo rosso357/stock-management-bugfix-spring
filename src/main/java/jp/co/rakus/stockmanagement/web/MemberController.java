@@ -59,7 +59,9 @@ public class MemberController {
 		if(member!=null){
 			result.rejectValue("mailAddress", null, "既にこのメールアドレスは使われています。");
 		}
-		
+		if(!(form.getPassword().equals(form.getPasswordConfirm()))){
+			result.rejectValue("passwordConfirm", null, "入力したパスワードが一致していません。");
+		}
 		if(result.hasErrors()){//
 			return "/member/form";
 		}
